@@ -24,7 +24,8 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 target: "",
                 useIsoDateFormat: false,
                 weekStart: 1,    // Dilluns
-                xmlUrl: ""
+                xmlUrl: "",
+                dateMaxMin: 3 // Controla el mes max i min
             };
 
             var    options = $.extend(defaults, customOptions),
@@ -34,6 +35,8 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 currentMonth = currentDate.getMonth() + 1,
                 currentYear = currentDate.getFullYear(),
                 currentDay = currentDate.getDate(),
+                // maxYear = currentDate.setMonth(currentDate.getMonth() + 3).getFullYear(),
+                // maxMonth = currentDate.setMonth(currentDate.getMonth() + 3).getMonth(),
                 locale = (options.locale || defaultLocale()).toLowerCase(),
                 monthNameFormat = options.monthNameFormat || "short",
                 weekdayNameFormat = options.weekdayNameFormat || "short",
@@ -393,6 +396,11 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 setYear = $(parent).data("setYear"),
                 newMonth = setMonth === 12 ? 1 : setMonth + 1,
                 newYear = setMonth === 12 ? setYear + 1 : setYear;
+            //alert(maxMonth + " " + maxYear);
+            // alert(currentMonth + " year: " + currentYear);
+            // var d = new Date();
+            // d.setMonth(d.getMonth() - 3);
+            // alert(d.getMonth() + " " + d.getFullYear());
             setMonthly(newMonth, newYear);
             viewToggleButton();
         }
