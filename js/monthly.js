@@ -24,8 +24,7 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 target: "",
                 useIsoDateFormat: false,
                 weekStart: 1,    // Dilluns
-                xmlUrl: "",
-                dateMaxMin: 3 // Controla el mes max i min
+                xmlUrl: ""
             };
 
             var    options = $.extend(defaults, customOptions),
@@ -35,8 +34,6 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 currentMonth = currentDate.getMonth() + 1,
                 currentYear = currentDate.getFullYear(),
                 currentDay = currentDate.getDate(),
-                // maxYear = currentDate.setMonth(currentDate.getMonth() + 3).getFullYear(),
-                // maxMonth = currentDate.setMonth(currentDate.getMonth() + 3).getMonth(),
                 locale = (options.locale || defaultLocale()).toLowerCase(),
                 monthNameFormat = options.monthNameFormat || "short",
                 weekdayNameFormat = options.weekdayNameFormat || "short",
@@ -391,18 +388,42 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
             return hour + ":" + String(timeSplit[1]) + " " + period;
         }
 
+        // Comprova si la data entra dins el min o el max
+        function comprovarMaxData(mes, any) {
+            var max = new Date(),
+                nou = new Date(any, mes);
+            max.setMonth(max.getMonth() + 3);
+            max.setDate(1);
+            nou.setDate(1);
+            if(nou < max) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function comprovarMinData(mes, any) {
+            var min = new Date(),
+                nou = new Date(any, mes);
+            min.setMonth(min.getMonth() - 2);
+            min.setDate(1);
+            nou.setDate(1);
+            if(nou > min) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         function setNextMonth() {
             var    setMonth = $(parent).data("setMonth"),
                 setYear = $(parent).data("setYear"),
                 newMonth = setMonth === 12 ? 1 : setMonth + 1,
                 newYear = setMonth === 12 ? setYear + 1 : setYear;
-            //alert(maxMonth + " " + maxYear);
-            // alert(currentMonth + " year: " + currentYear);
-            // var d = new Date();
-            // d.setMonth(d.getMonth() - 3);
-            // alert(d.getMonth() + " " + d.getFullYear());
-            setMonthly(newMonth, newYear);
-            viewToggleButton();
+            if(comprovarMaxData(newMonth, newYear)) {
+                setMonthly(newMonth, newYear);
+                viewToggleButton();
+            }
         }
 
         function setPreviousMonth() {
@@ -410,8 +431,10 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 setYear = $(parent).data("setYear"),
                 newMonth = setMonth === 1 ? 12 : setMonth - 1,
                 newYear = setMonth === 1 ? setYear - 1 : setYear;
-            setMonthly(newMonth, newYear);
-            viewToggleButton();
+            if(comprovarMinData(newMonth, newYear)) {
+                setMonthly(newMonth, newYear);
+                viewToggleButton();
+            }
         }
 
         // Function to go back to the month view
