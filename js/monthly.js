@@ -365,6 +365,9 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         function _prependBlankDays(count) {
             var wrapperEl = $(parent + " .monthly-day-wrap"),
                 index = 0;
+            // hack cutre per amagar els events
+            // per tal que nomes es vegi el dia seleccionat:
+            $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
             for(index = 0; index < count; index++) {
                 wrapperEl.prepend(markupBlankDay);
             }
@@ -468,6 +471,10 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 
         // Back to month view
         $(document.body).on("click", parent + " .monthly-cal", function (event) {
+            // hack cutre per amagar els events
+            // i fer que nomes es vegi el dia seleccionat
+            $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
+            // fi del hack cutre
             $(this).remove();
             $(parent + " .monthly-event-list").css("transform", "scale(0)");
             setTimeout(function() {
