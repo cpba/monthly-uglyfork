@@ -467,6 +467,8 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         // Reset Month
         $(document.body).on("click", parent + " .monthly-reset", function (event) {
             $(this).remove();
+            // amaguem la llista per si és oberta
+            $(parent + " .monthly-event-list").hide();
             setMonthly(currentMonth, currentYear);
             viewToggleButton();
             event.preventDefault();
