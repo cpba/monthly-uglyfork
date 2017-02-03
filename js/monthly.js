@@ -257,6 +257,9 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 $(parent + ' .monthly-list-item[data-number="' + index + '"]')
                     .addClass("item-has-event")
                     .append(markupListEvent);
+                // Fem que sigui clicable
+                $(parent + ' *[data-number="' + index + '"] ')
+                    .addClass("dia-clicable");
             }
         }
 
@@ -490,7 +493,9 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         });
 
         // Click A Day
-        $(document.body).on("click touchstart", parent + " .monthly-day", function (event) {
+        // Modificat .monthly-day per .dia-clicable per evitar que es puguin
+        // obrir dies sense events
+        $(document.body).on("click touchstart", parent + " .dia-clicable", function (event) {
             // If events, show events list
             var whichDay = $(this).data("number");
             if(options.mode === "event" && options.eventList) {
