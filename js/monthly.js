@@ -257,9 +257,11 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 $(parent + ' .monthly-list-item[data-number="' + index + '"]')
                     .addClass("item-has-event")
                     .append(markupListEvent);
-                // Fem que sigui clicable
-                $(parent + ' *[data-number="' + index + '"] ')
-                    .addClass("dia-clicable");
+                // Fem que només el primer dia sigui clicable
+                if(index == startDayNumber ) {
+                    $(parent + ' *[data-number="' + index + '"] ')
+                        .addClass("dia-clicable");
+                }
             }
         }
 
