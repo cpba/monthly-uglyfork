@@ -450,7 +450,7 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         function viewToggleButton() {
             if($(parent + " .monthly-event-list").is(":visible")) {
                 $(parent + " .monthly-cal").remove();
-                $(parent + " .monthly-header-title").prepend('<a href="#" class="monthly-cal"></a>');
+                // $(parent + " .monthly-header-title").prepend('<a href="#" class="monthly-cal"></a>');
             }
         }
 
@@ -482,13 +482,13 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         });
 
         // Back to month view
-        $(document.body).on("click", parent + " .monthly-cal", function (event) {
+        $(document.body).on("click", parent + " .monthly-header-title-date", function (event) {
             // hack cutre per amagar els events
             // i fer que nomes es vegi el dia seleccionat
             $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
             $(".casella-clicada").removeClass("casella-clicada");
             // fi del hack cutre
-            $(this).remove();
+            // $(this).remove();
             $(parent + " .monthly-event-list").css("transform", "scale(0)");
             setTimeout(function() {
                 $(parent + " .monthly-event-list").hide();
