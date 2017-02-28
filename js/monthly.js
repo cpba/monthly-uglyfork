@@ -373,6 +373,7 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
             // hack cutre per amagar els events
             // per tal que nomes es vegi el dia seleccionat:
             $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
+            $(".casella-clicada").removeClass("casella-clicada");
             for(index = 0; index < count; index++) {
                 wrapperEl.prepend(markupBlankDay);
             }
@@ -485,6 +486,7 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
             // hack cutre per amagar els events
             // i fer que nomes es vegi el dia seleccionat
             $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
+            $(".casella-clicada").removeClass("casella-clicada");
             // fi del hack cutre
             $(this).remove();
             $(parent + " .monthly-event-list").css("transform", "scale(0)");
@@ -501,6 +503,9 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
             // canvi aida, per fer que la llista no surti a sobre de l'anterior
             // si la caixa no surt a sobre del calendari
             $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
+            // Ressaltar la casella clicada:
+            $(".casella-clicada").removeClass("casella-clicada");
+            $(this).addClass("casella-clicada");
             // If events, show events list
             var whichDay = $(this).data("number");
             if(options.mode === "event" && options.eventList) {
