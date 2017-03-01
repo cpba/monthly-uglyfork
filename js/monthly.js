@@ -515,6 +515,9 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                 theList.show();
                 theList.css("transform");
                 theList.css("transform", "scale(1)");
+                // Això arregla un bug en que "dia-clicable" s'aplicava a la
+                // llista d'events, aquesta era la solució més ràpida:
+                $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').removeClass("dia-clicable");
                 $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').show();
                 theList.scrollTop(topPos);
                 viewToggleButton();
