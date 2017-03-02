@@ -461,9 +461,20 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
             setNextMonth();
             event.preventDefault();
         });
-
+        $(document.body).on("swiperight", function (event) {
+            // amaguem la llista per si és oberta
+            $(parent + " .monthly-event-list").hide();
+            setNextMonth();
+            event.preventDefault();
+        });
         // Go back in months
         $(document.body).on("click", parent + " .monthly-prev", function (event) {
+            // amaguem la llista per si és oberta
+            $(parent + " .monthly-event-list").hide();
+            setPreviousMonth();
+            event.preventDefault();
+        });
+        $(document.body).on("swipeleft", function (event) {
             // amaguem la llista per si és oberta
             $(parent + " .monthly-event-list").hide();
             setPreviousMonth();
