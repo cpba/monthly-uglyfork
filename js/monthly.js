@@ -496,15 +496,8 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         $(document.body).on("click", parent + " .monthly-header-title-date", function (event) {
             // hack cutre per amagar els events
             // i fer que nomes es vegi el dia seleccionat
-            $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
+            $('#' + uniqueId+' .monthly-event-list .monthly-list-item').slideUp("slow")
             $(".casella-clicada").removeClass("casella-clicada");
-            // fi del hack cutre
-            // $(this).remove();
-            $(parent + " .monthly-event-list").css("transform", "scale(0)");
-            setTimeout(function() {
-                $(parent + " .monthly-event-list").hide();
-            }, 250);
-            event.preventDefault();
         });
 
         // Click A Day
@@ -513,46 +506,47 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
         $(document.body).on("click touchstart", parent + " .dia-clicable", function (event) {
             // canvi aida, per fer que la llista no surti a sobre de l'anterior
             // si la caixa no surt a sobre del calendari
-            $('#' + uniqueId+' .monthly-event-list .monthly-list-item').hide()
-            // Ressaltar la casella clicada:
-            $(".casella-clicada").removeClass("casella-clicada");
-            $(this).addClass("casella-clicada");
-            // If events, show events list
-            var whichDay = $(this).data("number");
-            if(options.mode === "event" && options.eventList) {
-                var    theList = $(parent + " .monthly-event-list"),
-                    myElement = document.getElementById(uniqueId + "day" + whichDay),
-                    topPos = myElement.offsetTop;
-                theList.show();
-                theList.css("transform");
-                theList.css("transform", "scale(1)");
-                // Això arregla un bug en que "dia-clicable" s'aplicava a la
-                // llista d'events, aquesta era la solució més ràpida:
-                $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').removeClass("dia-clicable");
-                $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').show();
-                theList.scrollTop(topPos);
-                viewToggleButton();
-                if(!options.linkCalendarToEventUrl) {
-                    event.preventDefault();
-                }
-                $("html, body").animate({ scrollTop: $(document).height() }, "slow");
-            // If picker, pick date
-            } else if (options.mode === "picker") {
-                var    setMonth = $(parent).data("setMonth"),
-                    setYear = $(parent).data("setYear");
-                // Should days in the past be disabled?
-                if($(this).hasClass("monthly-past-day") && options.disablePast) {
-                    // If so, don't do anything.
-                    event.preventDefault();
-                } else {
-                    // Otherwise, select the date ...
-                    $(String(options.target)).val(formatDate(setYear, setMonth, whichDay));
-                    // ... and then hide the calendar if it started that way
-                    if(options.startHidden) {
-                        $(parent).hide();
+            if(!$(this).hasClass("casella-clicada")) {
+                $('#' + uniqueId+' .monthly-event-list .monthly-list-item').slideUp("slow")
+                // Ressaltar la casella clicada:
+                $(".casella-clicada").removeClass("casella-clicada");
+                $(this).addClass("casella-clicada");
+                // If events, show events list
+                var whichDay = $(this).data("number");
+                if(options.mode === "event" && options.eventList) {
+                    var    theList = $(parent + " .monthly-event-list"),
+                        myElement = document.getElementById(uniqueId + "day" + whichDay),
+                        topPos = myElement.offsetTop;
+                    theList.show();
+                    // Això arregla un bug en que "dia-clicable" s'aplicava a la
+                    // llista d'events, aquesta era la solució més ràpida:
+                    $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').removeClass("dia-clicable");
+                    // $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').show();
+                    $(parent + ' .monthly-list-item[data-number="' + whichDay + '"]').slideDown("slow");
+                    theList.scrollTop(topPos);
+                    viewToggleButton();
+                    if(!options.linkCalendarToEventUrl) {
+                        event.preventDefault();
                     }
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1400);
+                // If picker, pick date
+                } else if (options.mode === "picker") {
+                    var    setMonth = $(parent).data("setMonth"),
+                        setYear = $(parent).data("setYear");
+                    // Should days in the past be disabled?
+                    if($(this).hasClass("monthly-past-day") && options.disablePast) {
+                        // If so, don't do anything.
+                        event.preventDefault();
+                    } else {
+                        // Otherwise, select the date ...
+                        $(String(options.target)).val(formatDate(setYear, setMonth, whichDay));
+                        // ... and then hide the calendar if it started that way
+                        if(options.startHidden) {
+                            $(parent).hide();
+                        }
+                    }
+                    event.preventDefault();
                 }
-                event.preventDefault();
             }
         });
 
