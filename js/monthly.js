@@ -528,7 +528,7 @@ Monthly 2.1.0 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                     if(!options.linkCalendarToEventUrl) {
                         event.preventDefault();
                     }
-                    $("html, body").animate({ scrollTop: $(document).height() }, 1400);
+                    $("html, body").animate({ scrollTop: $(document).height() });
                 // If picker, pick date
                 } else if (options.mode === "picker") {
                     var    setMonth = $(parent).data("setMonth"),
