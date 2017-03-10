@@ -1,0 +1,7 @@
+This was forked from https://github.com/kthornbloom/Monthly
+It contains a number of hasty and ugly hacks to make it better fit the
+project I was working on at the time. Because of the lack of code quality
+and lack of general utility of the changes, I don't intend to merge
+this back into upstream.
+
+You can of course use this if you want but I wouldn't recommend it, use the original project instead.
